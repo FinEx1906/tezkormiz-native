@@ -11,7 +11,7 @@ import { Images } from "../../upload";
 import { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const AuthScreen = () => {
+const AuthScreen = ({ navigation }) => {
   const [selectTab, setSelecTab] = useState("Kirish");
   const TabPress = (tab) => {
     setSelecTab(tab);
@@ -61,7 +61,11 @@ const AuthScreen = () => {
             />
           </View>
           <View className="mt-3">
-            <TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("ForgotPassword");
+              }}
+            >
               <Text
                 className="text-base font-medium"
                 style={{ color: "#fa4a0c" }}
@@ -86,15 +90,13 @@ const AuthScreen = () => {
   );
 };
 
-
-const RegisterScreen = () => {
+const RegisterScreen = ({ navigation }) => {
   const [selectTab, setSelecTab] = useState("Kirish");
   const TabPress = (tab) => {
     setSelecTab(tab);
   };
   return (
     <View>
-
       <View className="justify-center items-center w-full mt-5">
         <View>
           <View className="flex-row items-center">
@@ -151,18 +153,8 @@ const RegisterScreen = () => {
               keyboardType="default"
             />
           </View>
-          <View className="mt-2">
-            <TouchableOpacity>
-              <Text
-                className="text-base font-medium"
-                style={{ color: "#fa4a0c" }}
-              >
-                Parol esingizdan chiqdimi?
-              </Text>
-            </TouchableOpacity>
-          </View>
         </View>
-        <View style={{ position: "absolute", bottom: "-30%" }}>
+        <View style={{ position: "absolute", bottom: "-35%" }}>
           <TouchableOpacity
             style={{ backgroundColor: "#fa4a0c" }}
             className="w-72 h-16 rounded-xl justify-center items-center"
@@ -175,9 +167,9 @@ const RegisterScreen = () => {
       </View>
     </View>
   );
-}
+};
 
-const Authentication = () => {
+const Authentication = ({ navigation }) => {
   const [selectTab, setSelectTab] = useState("Kirish");
 
   const TabPress = (tab) => {
@@ -217,7 +209,11 @@ const Authentication = () => {
         </View>
       </View>
 
-      {selectTab === "Kirish" ? <AuthScreen /> : <RegisterScreen />}
+      {selectTab === "Kirish" ? (
+        <AuthScreen navigation={navigation} />
+      ) : (
+        <RegisterScreen navigation={navigation} />
+      )}
     </View>
   );
 };
