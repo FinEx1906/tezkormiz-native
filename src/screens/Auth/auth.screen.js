@@ -1,5 +1,4 @@
 import {
-  Button,
   Image,
   StyleSheet,
   Text,
@@ -11,11 +10,48 @@ import { Images } from "../../upload";
 import { useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-const AuthScreen = ({ navigation }) => {
+const AuthScreen = ({ navigation, onSubmit }) => {
   const [selectTab, setSelecTab] = useState("Kirish");
   const TabPress = (tab) => {
     setSelecTab(tab);
   };
+
+
+
+  // backend call
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const Login = async () => {
+    try {
+      const response = await fetch("https://5cfbfd26628e0874.mokky.dev/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phoneNumber,
+          password,
+          email,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Login successful:", data);
+      } else {
+        console.error("Login failed:", data.error);
+      }
+    } catch (error) {
+      console.error("Error", error);
+    }
+  };
+
+
+
+
   return (
     <View>
       <View className="justify-center items-center w-full mt-5">
@@ -31,6 +67,8 @@ const AuthScreen = ({ navigation }) => {
               placeholder="Telefon raqamingizni kiriting"
               className="text-lg w-72 h-16 bg-gray-50 pl-10 pt-0 rounded-2xl"
               keyboardType="phone-pad"
+              value={phoneNumber}
+              onChangeText={(text) => { setPhoneNumber(text) }}
             />
           </View>
           <View className="flex-row items-center mt-4">
@@ -44,6 +82,8 @@ const AuthScreen = ({ navigation }) => {
               placeholder="Email manzilingizni kiriting"
               className="text-lg w-72 h-16 bg-gray-50 pl-10 pt-0 rounded-2xl"
               keyboardType="email-address"
+              value={email}
+              onChangeText={(text) => { setEmail(text) }}
             />
           </View>
           <View className="flex-row items-center mt-3">
@@ -58,6 +98,8 @@ const AuthScreen = ({ navigation }) => {
               placeholder="Parolingizni kiriting"
               className="text-lg w-72 h-16 bg-gray-50 pl-10 pt-0 rounded-2xl"
               keyboardType="default"
+              value={password}
+              onChangeText={(text) => { setPassword(text) }}
             />
           </View>
           <View className="mt-3">
@@ -79,6 +121,7 @@ const AuthScreen = ({ navigation }) => {
           <TouchableOpacity
             style={{ backgroundColor: "#fa4a0c" }}
             className="w-72 h-16 rounded-xl justify-center items-center"
+            onPress={Login}
           >
             <Text className="text-xl text-white font-bold tracking-widest">
               Hisobga kirish
@@ -95,6 +138,43 @@ const RegisterScreen = ({ navigation }) => {
   const TabPress = (tab) => {
     setSelecTab(tab);
   };
+
+
+  // backend call
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const Register = async () => {
+    try {
+      const response = await fetch("https://5cfbfd26628e0874.mokky.dev/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phoneNumber,
+          email,
+          password,
+          confirmPassword,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Registration successful:", data);
+      } else {
+        console.error("Registration failed:", data.error);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
+
   return (
     <View>
       <View className="justify-center items-center w-full mt-5">
@@ -110,6 +190,8 @@ const RegisterScreen = ({ navigation }) => {
               placeholder="Telefon raqamingizni kiriting"
               className="text-lg w-72 h-16 bg-gray-50 pl-10 pt-0 rounded-2xl"
               keyboardType="phone-pad"
+              value={phoneNumber}
+              onChangeText={(text) => { setPhoneNumber(text) }}
             />
           </View>
           <View className="flex-row items-center mt-2">
@@ -123,6 +205,8 @@ const RegisterScreen = ({ navigation }) => {
               placeholder="Email manzilingizni kiriting"
               className="text-lg w-72 h-16 bg-gray-50 pl-10 pt-0 rounded-2xl"
               keyboardType="email-address"
+              value={email}
+              onChangeText={(text) => { setEmail(text) }}
             />
           </View>
           <View className="flex-row items-center mt-2">
@@ -137,6 +221,8 @@ const RegisterScreen = ({ navigation }) => {
               placeholder="Parolingizni kiriting"
               className="text-lg w-72 h-16 bg-gray-50 pl-10 pt-0 rounded-2xl"
               keyboardType="default"
+              value={password}
+              onChangeText={(text) => { setPassword(text) }}
             />
           </View>
           <View className="flex-row items-center mt-2">
@@ -151,6 +237,8 @@ const RegisterScreen = ({ navigation }) => {
               placeholder="Parolni qayta kiriting"
               className="text-lg w-72 h-16 bg-gray-50 pl-10 pt-0 rounded-2xl"
               keyboardType="default"
+              value={confirmPassword}
+              onChangeText={(text) => { setConfirmPassword(text) }}
             />
           </View>
         </View>
@@ -158,6 +246,7 @@ const RegisterScreen = ({ navigation }) => {
           <TouchableOpacity
             style={{ backgroundColor: "#fa4a0c" }}
             className="w-72 h-16 rounded-xl justify-center items-center"
+            onPress={Register}
           >
             <Text className="text-xl text-white font-bold tracking-widest">
               Hisob yaratish
