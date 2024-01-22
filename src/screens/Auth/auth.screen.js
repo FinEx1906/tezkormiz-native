@@ -1,4 +1,5 @@
 import {
+  Alert,
   Image,
   StyleSheet,
   Text,
@@ -7,49 +8,44 @@ import {
   View,
 } from "react-native";
 import { Images } from "../../upload";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const AuthScreen = ({ navigation, onSubmit }) => {
-  const [selectTab, setSelecTab] = useState("Kirish");
-  const TabPress = (tab) => {
-    setSelecTab(tab);
-  };
-
-
-
-  // backend call
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [selectTab, setSelecTab] = useState('Kirish');
+  const [phone, setPhoneNumber] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const Login = async () => {
     try {
-      const response = await fetch("https://5cfbfd26628e0874.mokky.dev/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          phoneNumber,
-          password,
-          email,
-        }),
-      });
+        const response = await fetch('http://192.168.1.128:5000/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                phone,
+                password,
+                email,
+            }),
+        });
 
-      const data = await response.json();
+        const data = await response.json();
 
-      if (response.ok) {
-        console.log("Login successful:", data);
-      } else {
-        console.error("Login failed:", data.error);
-      }
+        if (response.ok) {
+            console.log('Login successful:', data);
+            navigation.navigate('Home');
+        } else {
+            console.error('Login failed:', data ? data.error : 'Unknown error');
+            console.log(data);
+        }
+
+        console.log(response);
     } catch (error) {
-      console.error("Error", error);
+        console.error('Error', error);
     }
-  };
-
-
+};
 
 
   return (
@@ -67,7 +63,7 @@ const AuthScreen = ({ navigation, onSubmit }) => {
               placeholder="Telefon raqamingizni kiriting"
               className="text-lg w-72 h-16 bg-gray-50 pl-10 pt-0 rounded-2xl"
               keyboardType="phone-pad"
-              value={phoneNumber}
+              value={phone}
               onChangeText={(text) => { setPhoneNumber(text) }}
             />
           </View>
@@ -135,26 +131,29 @@ const AuthScreen = ({ navigation, onSubmit }) => {
 
 const RegisterScreen = ({ navigation }) => {
   const [selectTab, setSelecTab] = useState("Kirish");
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
   const TabPress = (tab) => {
     setSelecTab(tab);
   };
 
 
   // backend call
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [name, setName] = useState("");
+  const [phone, setPhoneNumber] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const Register = async () => {
     try {
-      const response = await fetch("https://5cfbfd26628e0874.mokky.dev/register", {
+      const response = await fetch("http://192.168.1.128:5000/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          phoneNumber,
+          name,
+          phone,
           email,
           password,
           confirmPassword,
@@ -162,16 +161,21 @@ const RegisterScreen = ({ navigation }) => {
       });
 
       const data = await response.json();
-
       if (response.ok) {
-        console.log("Registration successful:", data);
+        setRegistrationSuccess(true);
       } else {
-        console.error("Registration failed:", data.error);
+        Alert.alert("Bunday foydalanuvchi allaqachon mavjud!");
       }
     } catch (error) {
       console.error("Error:", error);
     }
   };
+
+  useEffect(() => {
+    if (registrationSuccess) {
+      navigation.navigate("Home");
+    }
+  }, [registrationSuccess, navigation]);
 
 
 
@@ -180,6 +184,21 @@ const RegisterScreen = ({ navigation }) => {
       <View className="justify-center items-center w-full mt-5">
         <View>
           <View className="flex-row items-center">
+            <Ionicons
+              name="person-outline"
+              size={25}
+              color="#B2B2B2"
+              style={{ position: "absolute", zIndex: 1, left: 10 }}
+            />
+            <TextInput
+              placeholder="Ism va familiyangizni kiriting"
+              className="text-lg w-72 h-16 bg-gray-50 pl-10 pt-0 rounded-2xl"
+              keyboardType="default"
+              value={name}
+              onChangeText={(text) => { setName(text) }}
+            />
+          </View>
+          <View className="flex-row items-center mt-3">
             <Ionicons
               name="call-outline"
               size={25}
@@ -190,7 +209,7 @@ const RegisterScreen = ({ navigation }) => {
               placeholder="Telefon raqamingizni kiriting"
               className="text-lg w-72 h-16 bg-gray-50 pl-10 pt-0 rounded-2xl"
               keyboardType="phone-pad"
-              value={phoneNumber}
+              value={phone}
               onChangeText={(text) => { setPhoneNumber(text) }}
             />
           </View>
@@ -242,7 +261,7 @@ const RegisterScreen = ({ navigation }) => {
             />
           </View>
         </View>
-        <View style={{ position: "absolute", bottom: "-35%" }}>
+        <View style={{ position: "absolute", bottom: "-20%" }}>
           <TouchableOpacity
             style={{ backgroundColor: "#fa4a0c" }}
             className="w-72 h-16 rounded-xl justify-center items-center"
