@@ -6,7 +6,7 @@ import { useEffect } from "react";
 const SplashScreen = ({ navigation }) => {
   useEffect(() => {
     setTimeout(() => {
-      navigation.navigate("Auth");
+      navigation.navigate("Home");
     }, 2000);
   }, []);
   return (

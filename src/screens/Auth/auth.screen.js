@@ -41,7 +41,7 @@ const AuthScreen = ({ navigation, onSubmit }) => {
             console.log(data);
         }
 
-        console.log(response);
+        console.log(data);
     } catch (error) {
         console.error('Error', error);
     }
