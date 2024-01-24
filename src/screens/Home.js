@@ -120,18 +120,10 @@ const HomeScreen = ({ navigation }) => {
         </Text>
       </View>
       <TouchableOpacity onPress={() => navigation.navigate("Search")}>
-        <View className="flex-row items-center">
-          <Ionicons
-            name="search-outline"
-            size={30}
-            style={styles.searchIcon}
-            color={"#B2B2B2"}
-          />
-          <TextInput
-            placeholder="Ovqatlarni izlang..."
-            className="pl-12 text-xl font-medium w-full bg-gray-50 h-16 rounded-xl"
-            keyboardType="default"
-          />
+        <View className="justify-center items-center w-full bg-gray-50 h-16 rounded-xl">
+          <Text className="text-xl font-medium text-gray-400">
+            Ovqatlarni izlang...
+          </Text>
         </View>
       </TouchableOpacity>
       <View className="mt-5">
