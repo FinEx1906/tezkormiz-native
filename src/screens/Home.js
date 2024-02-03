@@ -13,11 +13,6 @@ import "react-native-gesture-handler";
 import * as Font from "expo-font";
 import { useState, useEffect } from "react";
 
-import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
-const Stack = createNativeStackNavigator();
-
 const getFonts = () =>
   Font.loadAsync({
     "abril-regular": require("../../assets/fonts/AbrilFatface-Regular.ttf"),
@@ -121,7 +116,7 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <TouchableOpacity onPress={() => navigation.navigate("Search")}>
         <View className="justify-center items-center w-full bg-gray-50 h-16 rounded-xl">
-          <Text className="text-xl font-medium text-gray-400">
+          <Text className="text-lg font-medium text-gray-400">
             Ovqatlarni izlang...
           </Text>
         </View>
@@ -133,7 +128,7 @@ const HomeScreen = ({ navigation }) => {
           horizontal
           renderItem={({ item }) => (
             <TouchableOpacity>
-              <Text className="mr-3 pl-2 pr-2 pt-3 pb-3 bg-gray-50 text-xl font-medium text-gray-400 rounded-lg">
+              <Text className="mr-3 pl-1 pr-1 pt-2 pb-2 bg-gray-50 text-lg font-medium text-gray-400 rounded-lg">
                 {item.routeName}
               </Text>
             </TouchableOpacity>
@@ -141,8 +136,12 @@ const HomeScreen = ({ navigation }) => {
         />
         <View className="mt-12 w-full">
           <View className="items-end">
-            <TouchableOpacity>
-              <Text className="text-orange-600 text-xl font-normal">
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("AllFood");
+              }}
+            >
+              <Text className="text-orange-600 text-lg font-normal">
                 Barchasini ko'ring
               </Text>
             </TouchableOpacity>
@@ -167,13 +166,13 @@ const HomeScreen = ({ navigation }) => {
                       </View>
                       <View className="mt-2">
                         <Text
-                          className="text-center text-xl"
+                          className="text-center text-lg"
                           style={{ fontFamily: "sf-pro-bold" }}
                         >
                           {item.foodMenu}
                         </Text>
                         <Text
-                          className="text-center text-lg text-orange-600"
+                          className="text-center text-sm text-orange-600"
                           style={{ fontFamily: "abril-regular" }}
                         >
                           {item.foodPrice} summa atorifda

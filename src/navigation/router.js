@@ -7,6 +7,8 @@ import NewPasswordScreen from "../screens/Auth/new.password.screen";
 import HomeScreen from "../screens/Home";
 import FoodInfoScreen from "../screens/food.info.screen";
 import SearchScreen from "../screens/search.system";
+import AllFoodScreen from "../screens/all.foods.screen";
+
 const Stack = createStackNavigator();
 
 const Router = () => {
@@ -20,6 +22,7 @@ const Router = () => {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="FoodInfo" component={FoodInfoScreen} />
         <Stack.Screen name="Search" component={SearchScreen} />
+        <Stack.Screen name="AllFood" component={AllFoodScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

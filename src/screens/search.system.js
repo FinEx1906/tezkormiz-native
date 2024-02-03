@@ -44,7 +44,6 @@ const foods = [
   },
 ];
 const SearchScreen = ({ navigation }) => {
-  const [hide, setHide] = useState(false);
 
   return (
     <SafeAreaView className="pl-5 pr-5 pt-2">

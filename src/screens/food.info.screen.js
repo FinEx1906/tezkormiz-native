@@ -64,13 +64,13 @@ const FoodInfoScreen = ({ navigation }) => {
         </View>
         <View className="my-5">
           <Text
-            className="text-center text-3xl"
+            className="text-center text-2xl"
             style={{ fontFamily: "sf-pro-heavy" }}
           >
             Tovuq go'shtli palov
           </Text>
           <Text
-            className="text-center text-2xl my-1 text-orange-600"
+            className="text-center text-xl my-1 text-orange-600"
             style={{ fontFamily: "abril-regular" }}
           >
             45 000 so'm
@@ -78,13 +78,13 @@ const FoodInfoScreen = ({ navigation }) => {
         </View>
         <View className="my-4">
           <Text
-            className="text-xl font-light tracking-widest"
+            className="text-lg font-light tracking-widest"
             style={{ fontFamily: "sf-pro-bold" }}
           >
             Yetkazib berish haqida ma'lumot
           </Text>
           <Text
-            className="text-xl -tracking-tight mt-1"
+            className="text-lg -tracking-tight"
             style={{ fontFamily: "sf-pro-regular" }}
           >
             20-yanvar dushanba kuni, soat 12:00 dan 12:30 vaqt oralig'ida
@@ -93,13 +93,13 @@ const FoodInfoScreen = ({ navigation }) => {
         </View>
         <View className="my-1">
           <Text
-            className="text-xl font-light tracking-widest"
+            className="text-lg font-light tracking-widest"
             style={{ fontFamily: "sf-pro-bold" }}
           >
             Mahsulotni qaytarish
           </Text>
           <Text
-            className="text-xl -tracking-tight mt-1"
+            className="text-lg -tracking-tight"
             style={{ fontFamily: "sf-pro-regular" }}
           >
             mahsulotni qaytarish qoiladilariga ko'ra, agar ovqat/mahsulotingizni
